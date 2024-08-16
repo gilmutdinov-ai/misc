@@ -1,7 +1,5 @@
 #pragma once
 
-namespace misc {
-
 #define LOG(msg) (Log(__FILE__, __LINE__, LogData<None>() << msg))
 
 // Workaround GCC 4.7.2 not recognizing noinline attribute
@@ -53,5 +51,3 @@ void output(std::ostream &os, std::pair<Begin, Last> &&data) {
 }
 
 inline void output(std::ostream &os, None) {}
-
-} // namespace misc
