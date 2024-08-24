@@ -112,4 +112,16 @@ bool Config::validateImpl(const Json::Value &cfg, std::string &err) const {
   return true;
 }
 
+std::string Config::renderArray(const Json::Value &_js_arr, char _delim) {
+
+  std::stringstream ss;
+  Json::Value::ArrayIndex size = _js_arr.size();
+  for (Json::Value::ArrayIndex i = 0; i < size; ++i) {
+    ss << _js_arr[i].asString();
+    if (i != size - 1)
+      ss << _delim;
+  }
+  return ss.str();
+}
+
 } // namespace misc

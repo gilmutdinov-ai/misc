@@ -50,6 +50,8 @@ public:
   void validate(const std::string &_dbg) const;
 
   bool validateImpl(const Json::Value &cfg, std::string &err) const;
+
+  static std::string renderArray(const Json::Value &_js_arr, char _delim);
 };
 
 } // namespace misc
