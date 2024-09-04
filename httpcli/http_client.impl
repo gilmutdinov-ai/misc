@@ -2,7 +2,7 @@
 template <class ODataT>
 HttpClientA<ODataT>::JobInfo::JobInfo(ODataT _userdata,
                                       const std::string &_postdata)
-    : success(false), userdata(_userdata), postdata(_postdata) {}
+    : userdata(_userdata), success(false), postdata(_postdata) {}
 
 template <class ODataT>
 HttpClientA<ODataT>::HttpClientA(
