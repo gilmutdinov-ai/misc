@@ -31,6 +31,7 @@ private:
 
 public:
   Config() = default;
+  virtual ~Config() = default;
 
   std::string help() const;
   void parse(const std::string &_config_path);
