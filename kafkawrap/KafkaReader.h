@@ -15,7 +15,8 @@ class KafkaReaderI {
 public:
   using Ptr = std::shared_ptr<KafkaReaderI>;
   virtual ~KafkaReaderI() = default;
-  virtual void read(std::function<void(const std::string &mess)> _cb,
+  virtual void read(bool _dont_block,
+                    std::function<void(const std::string &mess)> _cb,
                     long long _limit = -1) = 0;
   virtual void stop() = 0;
 };
@@ -36,7 +37,7 @@ public:
               const std::string &_group_id = "test_kafka");
   virtual ~KafkaReader();
 
-  void read(std::function<void(const std::string &mess)> _cb,
+  void read(bool _dont_block, std::function<void(const std::string &mess)> _cb,
             long long _limit = -1) override;
 
   void stop() override;
@@ -45,6 +46,9 @@ private:
   static std::vector<KafkaMessagePtr>
   consumeBatch(RdKafka::KafkaConsumer *consumer, size_t batch_size,
                int batch_tmout);
+
+  void read_(std::function<void(const std::string &mess)> _cb, bool _one_batch,
+             long long _limit = -1);
 
   std::string m_errstr;
 

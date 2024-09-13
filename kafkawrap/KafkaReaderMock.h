@@ -17,7 +17,7 @@ public:
   // KafkaReaderMock(std::vector<std::string> &&_data);
 
   virtual ~KafkaReaderMock() = default;
-  void read(std::function<void(const std::string &mess)> _cb,
+  void read(bool _dont_block, std::function<void(const std::string &mess)> _cb,
             long long _limit = -1) override;
   void stop() override;
 

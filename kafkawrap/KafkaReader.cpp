@@ -100,7 +100,8 @@ KafkaReader::consumeBatch(RdKafka::KafkaConsumer *consumer, size_t batch_size,
 
 void KafkaReader::stop() { run = 0; }
 
-void KafkaReader::read(std::function<void(const std::string &mess)> _cb,
+void KafkaReader::read(bool _dont_block,
+                       std::function<void(const std::string &mess)> _cb,
                        long long _limit) {
 
   long long i = 0;
@@ -122,6 +123,8 @@ void KafkaReader::read(std::function<void(const std::string &mess)> _cb,
       }
       ++i;
       if (_limit != -1 && i >= _limit)
+        return;
+      if (_dont_block)
         return;
     }
   }

@@ -16,7 +16,8 @@ KafkaReaderMock::KafkaReaderMock(const std::string &_sim_topic)
 
 void KafkaReaderMock::stop() {}
 
-void KafkaReaderMock::read(std::function<void(const std::string &mess)> _cb,
+void KafkaReaderMock::read(bool _dont_block, // ignored
+                           std::function<void(const std::string &mess)> _cb,
                            long long _limit) {
   if (m_sim_topic.empty()) { // const data mode
     size_t e = (_limit == -1)
