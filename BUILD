@@ -29,6 +29,7 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         "@jsoncpp//:jsoncpp",
+        "@yaml-cpp//:yaml-cpp",
         "@date//:date",
         "@concurrentqueue//:concurrentqueue"
     ],

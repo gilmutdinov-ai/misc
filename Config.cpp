@@ -4,6 +4,23 @@
 
 namespace misc {
 
+Config &Config::operator=(const YAML::Node &_y) {
+  *static_cast<YAML::Node *>(this) = _y;
+  return *this;
+}
+
+Config::Config(const YAML::Node &_y) { *static_cast<YAML::Node *>(this) = _y; }
+
+Config &Config::operator=(const std::string &s) {
+  YAML::Node::operator=(s);
+  return *this;
+}
+
+Config &Config::operator=(int i) {
+  YAML::Node::operator=(i);
+  return *this;
+}
+
 std::string Config::help() const {
 
   std::stringstream ss;
@@ -31,20 +48,14 @@ std::string Config::help() const {
   return ss.str();
 }
 
-void Config::parse(const std::string &_config_path) {
-  // parse config
-  std::ifstream c_stream(_config_path);
-  std::string c_string((std::istreambuf_iterator<char>(c_stream)),
-                       std::istreambuf_iterator<char>());
+void Config::parseFile(const std::string &_path) {
 
-  parseJsonString(c_string);
+  *this = YAML::LoadFile(_path);
+  onParsed();
 }
 
-void Config::parseJsonString(const std::string &_json) {
-  if (!Json::Reader().parse(_json, *this)) {
-    throw std::invalid_argument(
-        "Config::parseJsonString could not parse config");
-  }
+void Config::parseString(const std::string &_str) {
+  *this = YAML::Load(_str);
   onParsed();
 }
 
@@ -89,27 +100,45 @@ void Config::validate(const std::string &_dbg) const {
     throw std::invalid_argument("Config::validate " + _dbg + " " + err);
 }
 
-bool Config::validateImpl(const Json::Value &cfg, std::string &err) const {
+bool Config::validateImpl(const YAML::Node &cfg, std::string &err) const {
 
-  for (auto i = 0; i < m_strings.size(); ++i)
-    if (!cfg[m_strings[i]].isString()) {
-
+  for (auto i = 0; i < m_strings.size(); ++i) {
+    if (cfg[m_strings[i]].Type() != YAML::NodeType::Scalar) {
       err = "expected string: " + m_strings[i];
       return false;
     }
-  for (auto i = 0; i < m_ints.size(); ++i)
-    if (!cfg[m_ints[i]].isIntegral()) {
+    std::string string_value;
+    if (!YAML::convert<std::string>::decode(cfg[m_strings[i]], string_value)) {
+      err = "expected string: " + m_strings[i];
+      return false;
+    }
+  }
+  for (auto i = 0; i < m_ints.size(); ++i) {
+    if (cfg[m_ints[i]].Type() != YAML::NodeType::Scalar) {
 
       err = "expected int: " + m_ints[i];
       return false;
     }
+    int int_value;
+    if (!YAML::convert<int>::decode(cfg[m_ints[i]], int_value)) {
+      err = "expected int: " + m_ints[i];
+      return false;
+    }
+  }
   for (auto i = 0; i < m_arrays.size(); ++i)
-    if (!cfg[m_arrays[i]].isArray()) {
+    if (cfg[m_arrays[i]].Type() != YAML::NodeType::Sequence) {
 
       err = "expected array: " + m_arrays[i];
       return false;
     }
   return true;
+}
+
+std::vector<std::string> Config::getStrArray(const YAML::Node &_node) {
+  std::vector<std::string> ret;
+  for (YAML::const_iterator it = _node.begin(); it != _node.end(); ++it)
+    ret.push_back(it->as<std::string>());
+  return ret;
 }
 
 std::string Config::renderArray(const Json::Value &_js_arr, char _delim) {
