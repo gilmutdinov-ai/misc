@@ -141,14 +141,16 @@ std::vector<std::string> Config::getStrArray(const YAML::Node &_node) {
   return ret;
 }
 
-std::string Config::renderArray(const Json::Value &_js_arr, char _delim) {
+std::string Config::renderArray(const YAML::Node &_node, char _delim) {
 
+  auto size = _node.size();
+  size_t i = 0;
   std::stringstream ss;
-  Json::Value::ArrayIndex size = _js_arr.size();
-  for (Json::Value::ArrayIndex i = 0; i < size; ++i) {
-    ss << _js_arr[i].asString();
+  for (YAML::const_iterator it = _node.begin(); it != _node.end(); ++it) {
+    ss << it->as<std::string>();
     if (i != size - 1)
       ss << _delim;
+    ++i;
   }
   return ss.str();
 }

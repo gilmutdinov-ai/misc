@@ -54,7 +54,7 @@ public:
 
   bool validateImpl(const YAML::Node &cfg, std::string &err) const;
 
-  static std::string renderArray(const Json::Value &_js_arr, char _delim);
+  static std::string renderArray(const YAML::Node &_node, char _delim);
 
   static std::vector<std::string> getStrArray(const YAML::Node &_node);
   ///
