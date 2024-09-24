@@ -171,7 +171,7 @@ TEST_CASE("Move semantics: overloading on refs", "[move]") {
   // const string getValue(); - don't return const by value
 }
 
-TEST_CASE("Move semantics for classes", "[move]") {
+TEST_CASE("Move semantics for classes, default", "[move]") {
   // Guarantee for library objects:
   //   unless otherwise specified, after move objects
   //   in valid but unspecified state
@@ -206,6 +206,30 @@ TEST_CASE("Move semantics for classes", "[move]") {
     //
   };
 
+  vector<Customer> v;
+  Customer cust{"f", "l", 77};
+  v.push_back(std::move(cust)); // moves
+  // cust valid unspecified state
+  REQUIRE(v[0].getVal() == 77);
+}
+
+TEST_CASE("Move semantics for classes, by hand", "[move]") {
+  class Customer {
+    string first;
+    string last;
+    int val;
+
+  public:
+    Customer(const string &f, const string &l, int v)
+        : first{f}, last{l}, val{v} {}
+    Customer(const Customer &c) : first{c.first}, last{c.last}, val{c.val} {}
+    Customer(Customer &&c) // need write move again
+        : first{std::move(c.first)}, last{std::move(c.last)}, val{c.val} {
+      c.val = -1;
+    }
+
+    int getVal() const { return val; }
+  };
   vector<Customer> v;
   Customer cust{"f", "l", 77};
   v.push_back(std::move(cust)); // moves
