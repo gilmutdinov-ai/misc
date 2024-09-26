@@ -1,7 +1,7 @@
 
 cc_test(
-    name = "000_hello",
-    srcs = ["ut_hello.cpp"],
+    name = "002_api_design",
+    srcs = ["ut_api_design.cpp"],
     copts = ["-Isrc/"],
     deps = [
         "@catch2//:catch2_main",
