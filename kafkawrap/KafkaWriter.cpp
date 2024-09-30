@@ -15,12 +15,6 @@ static volatile sig_atomic_t run = 1;
 
 static void sigterm(int sig) { run = 0; }
 
-static int64_t now() {
-  struct timeval tv;
-  gettimeofday(&tv, NULL);
-  return ((int64_t)tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-}
-
 void DeliveryReportCb::dr_cb(RdKafka::Message &message) {
   /* If message.err() is non-zero the message delivery failed permanently
    * for the message. */
