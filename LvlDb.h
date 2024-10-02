@@ -2,6 +2,7 @@
 
 #include "leveldb/db.h"
 #include <memory>
+#include <string_view>
 
 namespace misc {
 

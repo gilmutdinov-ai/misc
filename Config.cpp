@@ -48,14 +48,14 @@ std::string Config::help() const {
   return ss.str();
 }
 
-void Config::parseFile(const std::string &_path) {
+void Config::parseFile(std::string_view _path) {
 
-  *this = YAML::LoadFile(_path);
+  *this = YAML::LoadFile(std::string{_path});
   onParsed();
 }
 
-void Config::parseString(const std::string &_str) {
-  *this = YAML::Load(_str);
+void Config::parseString(std::string_view _str) {
+  *this = YAML::Load(std::string{_str});
   onParsed();
 }
 
@@ -94,10 +94,11 @@ void Config::validate() const {
     throw std::invalid_argument("Config::validate " + err);
 }
 
-void Config::validate(const std::string &_dbg) const {
+void Config::validate(std::string_view _dbg) const {
   std::string err;
   if (!validateImpl(*this, err))
-    throw std::invalid_argument("Config::validate " + _dbg + " " + err);
+    throw std::invalid_argument("Config::validate " + std::string{_dbg} + " " +
+                                err);
 }
 
 bool Config::validateImpl(const YAML::Node &cfg, std::string &err) const {

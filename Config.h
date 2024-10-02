@@ -7,11 +7,12 @@
 #include <map>
 #include <memory>
 #include <stdexcept>
+#include <string_view>
 #include <vector>
 
 /*
 Конфиги подсистем наследуются от Config, чтобы не менять везде, Config в одном
-месте наследуется от Config<Json::Value> или Config<YAML::Node>
+месте наследуется от Config<YAML::Node>
 */
 
 /*
@@ -48,9 +49,9 @@ public:
   Config &operator=(const std::string &);
   Config &operator=(int i);
 
-  // Format dependant implementations:
-  void parseFile(const std::string &_path);
-  void parseString(const std::string &_str);
+  // yaml
+  void parseFile(std::string_view _path);
+  void parseString(std::string_view _str);
 
   bool validateImpl(const YAML::Node &cfg, std::string &err) const;
 
@@ -70,7 +71,7 @@ public:
   void addStringsOpt(const std::vector<std::string> &v);
 
   void validate() const;
-  void validate(const std::string &_dbg) const;
+  void validate(std::string_view _dbg) const;
 };
 
 } // namespace misc

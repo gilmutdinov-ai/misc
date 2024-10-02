@@ -6,6 +6,7 @@
 #include <sstream>
 #include <stdint.h>
 #include <string>
+#include <string_view>
 
 namespace misc {
 
@@ -43,9 +44,9 @@ std::string
 get_day_time_str(std::chrono::time_point<std::chrono::system_clock> _tp);
 
 std::chrono::time_point<std::chrono::system_clock>
-tp_from_day_str(const std::string &_str);
+tp_from_day_str(std::string_view _str);
 
 std::chrono::time_point<std::chrono::system_clock>
-tp_from_day_time_str(const std::string &_day_time);
+tp_from_day_time_str(std::string_view _day_time);
 
 } // namespace misc

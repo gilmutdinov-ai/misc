@@ -10,7 +10,7 @@ static inline bool is_base64(unsigned char c) {
   return (isalnum(c) || (c == '+') || (c == '/'));
 }
 
-std::string base64_encode(const std::string &_s) {
+std::string base64_encode(std::string_view _s) {
   return do_base64_encode(reinterpret_cast<unsigned char const *>(_s.data()),
                           _s.size() * sizeof(const unsigned char) /
                               sizeof(const char));
@@ -61,7 +61,7 @@ std::string do_base64_encode(unsigned char const *bytes_to_encode,
   return ret;
 }
 
-std::string base64_decode(std::string const &encoded_string) {
+std::string base64_decode(std::string_view encoded_string) {
   int in_len = encoded_string.size();
   int i = 0;
   int j = 0;

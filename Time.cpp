@@ -148,17 +148,17 @@ get_day_time_str(std::chrono::time_point<std::chrono::system_clock> _tp) {
 }
 
 std::chrono::time_point<std::chrono::system_clock>
-tp_from_day_str(const std::string &_day) {
+tp_from_day_str(std::string_view _day) {
   std::tm tm = {};
-  std::stringstream ss(_day);
+  std::stringstream ss{std::string{_day}};
   ss >> std::get_time(&tm, "%Y.%m.%d");
   return std::chrono::system_clock::from_time_t(std::mktime(&tm));
 }
 
 std::chrono::time_point<std::chrono::system_clock>
-tp_from_day_time_str(const std::string &_day_time) {
+tp_from_day_time_str(std::string_view _day_time) {
   std::tm tm = {};
-  std::stringstream ss(_day_time);
+  std::stringstream ss{std::string{_day_time}};
   ss >> std::get_time(&tm, "%Y.%m.%d %H:%M:%S");
   return std::chrono::system_clock::from_time_t(std::mktime(&tm));
 }

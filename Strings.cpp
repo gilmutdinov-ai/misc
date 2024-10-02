@@ -57,9 +57,9 @@ std::string url_encode(const std::string &str) {
   return new_str;
 }
 
-std::vector<std::string> split(const std::string &target, char c) {
+std::vector<std::string> split(std::string_view target, char c) {
   std::string temp;
-  std::stringstream stringstream{target};
+  std::stringstream stringstream{std::string{target}};
   std::vector<std::string> result;
 
   while (std::getline(stringstream, temp, c)) {

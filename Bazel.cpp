@@ -6,7 +6,7 @@
 
 namespace misc {
 
-std::string get_bazel_test_data_path(const std::string &_data_path) {
+std::string get_bazel_test_data_path(std::string_view _data_path) {
   std::stringstream ss;
   ss << std::getenv("TEST_SRCDIR");
   ss << "/" << std::getenv("TEST_WORKSPACE");
