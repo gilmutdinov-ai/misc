@@ -1,5 +1,5 @@
-#include "misc/ut/MiscTester.h"
-#include "misc/Vectors.h"
+#include "ut/MiscTester.h"
+#include "Vectors.h"
 #include <catch2/catch_test_macros.hpp>
 
 namespace misc {

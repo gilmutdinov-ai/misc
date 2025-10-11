@@ -10,8 +10,8 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         "@catch2//:catch2_main",
-        "//src/kafkawrap",
-        "//src/tests/common"
+        "//kafkawrap",
+        #"//src/tests/common"
     ],
     copts = [
         "-Isrc/"

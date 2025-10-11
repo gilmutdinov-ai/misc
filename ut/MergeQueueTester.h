@@ -1,7 +1,7 @@
 #pragma once
 
+#include "MergeQueue.h"
 #include "core/Types.h"
-#include "misc/MergeQueue.h"
 #include <catch2/catch_test_macros.hpp>
 #include <iostream>
 #include <memory>

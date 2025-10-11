@@ -13,7 +13,8 @@ cc_library(
         "Vectors.cpp",
         "MergeQueue.h",
         "Base64.cpp",
-        "LvlDb.cpp"
+        "LvlDb.cpp",
+        "Trie.cpp"
     ],
     hdrs = [
         "Log.h",
@@ -24,7 +25,8 @@ cc_library(
         "Strings.h",
         "Vectors.h",
         "Base64.h",
-        "LvlDb.h"
+        "LvlDb.h",
+        "Trie.h"
     ],
     visibility = ["//visibility:public"],
     deps = [

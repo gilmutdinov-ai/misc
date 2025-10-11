@@ -14,8 +14,7 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         "@catch2//:catch2_main",
-        "//src/misc",
-        "//src/tests/common"
+        "//src"
     ],
     copts = [
         "-Isrc/"

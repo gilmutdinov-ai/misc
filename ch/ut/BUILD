@@ -14,7 +14,7 @@ cc_library(
     deps = [
         "@cpp-httplib//:cpp-httplib",
         "@catch2//:catch2_main",
-        "//src/misc/ch"
+        "//ch"
     ],
     copts = [
         "-Isrc/"

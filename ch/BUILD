@@ -10,8 +10,7 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "//src/misc/httpcli",
-        "//src/misc"
+        "//httpcli"
     ],
     copts = ["-Isrc"]
 )

@@ -1,11 +1,11 @@
 
 cc_test(
-    name = "012_misc",
+    name = "002_misc",
     srcs = ["ut_misc.cpp"],
     copts = ["-Isrc/"],
     deps = [
         "@catch2//:catch2_main",
-        "//src/misc/ut"
+        "//ut"
     ],
     visibility = ["//visibility:public"]
 )
