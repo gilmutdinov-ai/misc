@@ -1,7 +1,7 @@
 cc_binary(
-    name = "simd_hello",
+    name = "simd_init",
     srcs = [
-        "simd_hello.cpp"
+        "simd_init.cpp"
     ],
     deps = [
         "//junk/algo/simd/common"
