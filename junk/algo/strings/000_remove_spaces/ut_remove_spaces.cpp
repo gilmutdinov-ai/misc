@@ -2,6 +2,31 @@
 #include <map>
 #include <string>
 
+using namespace std;
+
+string &removeExtraSpacesShort(string &s) {
+
+  size_t w = 0;
+  size_t r = 0;
+  bool prev_space{false};
+  while (r < s.size()) {
+    if (s[r] == ' ') { // space
+      prev_space = true;
+    } else { // not space
+      if (prev_space && w != 0) {
+        s[w] = ' ';
+        ++w;
+      }
+      s[w] = s[r];
+      ++w;
+      prev_space = false;
+    }
+    ++r;
+  }
+  s.erase(s.begin() + w, s.end());
+  return s;
+}
+
 std::string &removeExtraSpaces(std::string &s) {
   // remove leading
   int w = 0;
@@ -46,13 +71,20 @@ public:
                {"xxxxx", "xxxxx"},
                {"  xxxx xxxx ", "xxxx xxxx"}};
 
-    runTests();
+    runTestsLongVersion();
+    runTestsShortVersion();
   }
 
-  void runTests() {
+  void runTestsLongVersion() {
     for (const auto &[in_, out_] : m_cases) {
       std::string in{in_};
       REQUIRE(removeExtraSpaces(in) == out_);
+    }
+  }
+  void runTestsShortVersion() {
+    for (const auto &[in_, out_] : m_cases) {
+      std::string in{in_};
+      REQUIRE(removeExtraSpacesShort(in) == out_);
     }
   }
 };
