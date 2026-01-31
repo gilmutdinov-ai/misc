@@ -15,8 +15,7 @@ new_local_repository(
 package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "cpp-httplib",
-    srcs = glob([
-    ]),
+    #srcs = glob([]),
     hdrs = glob([
         "httplib.h"
     ]),

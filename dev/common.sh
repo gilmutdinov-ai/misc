@@ -1,5 +1,7 @@
 echo 'loading common.sh'
 
+BAZEL_BIN="bazel-8.4.2"
+
 BAZEL_SYMLINK_PREFIX=/tmp/misc/
 
 # on win slows down any volumes if vm, only use with wsl
